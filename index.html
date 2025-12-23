@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>수취인불명 인명부</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <h2>📮 수취인불명 인명부</h2>
+
+  <input id="name" placeholder="이름 입력" />
+  <button onclick="search()">조회</button>
+
+  <pre id="result"></pre>
+
+<script>
+async function search() {
+  const name = document.getElementById("name").value;
+  document.getElementById("result").innerText = "조회 중...";
+
+  const res = await fetch("YOUR_API_ENDPOINT", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_API_KEY"
+    },
+    body: JSON.stringify({
+      prompt: `수취인불명 인명부에서 ${name} 조회`
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById("result").innerText =
+    data.output_text || "결과 없음";
+}
+</script>
+</body>
+</html>
